@@ -15,7 +15,7 @@ class GeneratorModule {
     //this._osc.frequency.value = Lib220a.mtof(60);
     this._amp.gain.value = 0.0;
     this._lfo.frequency.value = 6;
-    this._depth.gain.value = 100;
+    this._depth.gain.value = 200;
 
     this._osc.connect(this._amp).connect(this.output);
     this._lfo.connect(this._depth).connect(this._osc.detune);
@@ -36,12 +36,18 @@ class GeneratorModule {
 
   noteOn(pitch, velocity, when) {
     const now = this._context.currentTime;
+    console.log(pitch);
+    //const factor = Math.floor(Lib220a.mtof(pitch), now, 0.001);
+    //this._notePitch = this._notePitch;
+    
     //this._notePitch = Math.floor(Lib220a.mtof(pitch), now, 0.001);
-    this._osc.frequency.setValueAtTime(this._notePitch, now, 0.001);
+    this._osc.frequency.setValueAtTime(this._notePitch, now, 0.001); 
+    this._amp.gain.setTargetAtTime(this._volume, now, 0.0001);
+
     //this._osc.frequency.setTargetAtTime(this._notePitch, now, 0.001);
     //const noteOnPitch = Math.floor(Lib220a.mtof(pitch), now, 0.001);
     //this._osc.frequency.setTargetAtTime(noteOnPitch, now, 0.001);
-    this._amp.gain.setTargetAtTime(this._volume, now, 0.0001);
+
     // Q: What does this code do?
 //     const noteOnPitch = Math.floor(Lib220a.mtof(pitch));
 //     if (!this._currentPitches.includes(noteOnPitch))
@@ -94,7 +100,7 @@ class GeneratorModule {
 
   param3(value, when) {
     const now = this._context.currentTime;
-    this._volume = value / 100.00;
+    this._volume = value / 95.00;
     this._amp.gain.setTargetAtTime(this._volume, now, 0.001);
   }
 }

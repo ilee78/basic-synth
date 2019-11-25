@@ -35,7 +35,7 @@ class GeneratorModule {
 
   noteOn(pitch, velocity, when) {
     const now = this._context.currentTime;
-    this._notePitch = Math.floor(Lib220a.mtof(pitch), now, 0.001);
+    //this._notePitch = Math.floor(Lib220a.mtof(pitch), now, 0.001);
     this._osc.frequency.setValueAtTime(this._notePitch, now, 0.001);
     //this._osc.frequency.setTargetAtTime(this._notePitch, now, 0.001);
     //const noteOnPitch = Math.floor(Lib220a.mtof(pitch), now, 0.001);
@@ -71,17 +71,23 @@ class GeneratorModule {
 
   param1(value, when) {
     //const scaledValue = (value / 100) * 40 + 3;
-    this._notePitch =  (value / 50) * 40 + 3;
+    const now = this._context.currentTime;
+    this._notePitch = Math.floor(Lib220a.mtof(value) * 20, now, 0.001);
+    //this._notePitch =  (value / 50) * 40 + 3;
     this._osc.frequency.setTargetAtTime(this._notePitch, this._context.currentTime, 0.001);
     // const scaledValue = (value / 100) * 20 + 2;
     // this._lfo.frequency.setTargetAtTime(
     //     scaledValue, this._context.currentTime, 0.001);
+    return this._notePitch;
   }
   
   param2(value, when) {
-    const scaledValue = (value / 100) * 1000 + 10;
-    this._depth.gain.setTargetAtTime(
-        scaledValue, this._context.currentTime, 0.001);
+    const scaledValue = (value / 100) * 10 + 1;
+    this._lfo.frequency.value = scaledValue;
+    //this._lfo.frequency.setTargetAtTime(scaledValue, this._context.currentTime, 0.001);
+    // const scaledValue = (value / 100) * 1000 + 10;
+    // this._depth.gain.setTargetAtTime(
+    //     scaledValue, this._context.currentTime, 0.001);
   }
 
   param3(value, when) {

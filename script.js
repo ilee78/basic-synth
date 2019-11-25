@@ -14,7 +14,7 @@ const handleStartButtonClick = (event) => {
 };
 
 const handleFreqSlider = (event) => {
-  
+  gen.param1(event.srcElement.valueAsNumber);
 }
 
 // const handleLfoFreqSlider = (event) => {

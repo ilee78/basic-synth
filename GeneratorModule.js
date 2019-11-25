@@ -32,7 +32,7 @@ class GeneratorModule {
 
   noteOn(pitch, velocity, when) {
     // Q: What does this code do?
-    const noteOnPitch = Math.floor(pitch);
+    const noteOnPitch = Math.floor(Lib220a.mtof(pitch));
     if (!this._currentPitches.includes(noteOnPitch))
       this._currentPitches.push(noteOnPitch);
     
@@ -57,9 +57,11 @@ class GeneratorModule {
   }
 
   param1(value, when) {
-    const scaledValue = (value / 100) * 20 + 2;
-    this._lfo.frequency.setTargetAtTime(
-        scaledValue, this._context.currentTime, 0.001);
+    const scaledValue = (value / 100) * 40 + 3;
+    this._osc.frequency.setTargetAtTime(scaledValue, this._context.currentTime, 0.001);
+    // const scaledValue = (value / 100) * 20 + 2;
+    // this._lfo.frequency.setTargetAtTime(
+    //     scaledValue, this._context.currentTime, 0.001);
   }
   
   param2(value, when) {

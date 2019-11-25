@@ -25,7 +25,7 @@ class EffectModule {
   close() {}
 
   param1(value, when) {
-    const scaledValue = value / 100;
+    const scaledValue = value / 20;
     const now = this._context.currentTime;
     this._wet.gain.setTargetAtTime(scaledValue, now, 0.001);
     this._dry.gain.setTargetAtTime(1.0 - scaledValue, now, 0.001);

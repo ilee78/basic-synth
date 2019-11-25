@@ -9,10 +9,10 @@ class GeneratorModule {
     this._amp = new GainNode(this._context);
     this.output = new GainNode(context);
 
-    this._osc.type = 'triangle';
+    this._osc.type = 'sine';
     this._osc.frequency.value = Lib220a.mtof(60);
     this._amp.gain.value = 0.0;
-    this._lfo.frequency.value = 8;
+    this._lfo.frequency.value = 6;
     this._depth.gain.value = 100;
 
     this._osc.connect(this._amp).connect(this.output);
@@ -20,7 +20,7 @@ class GeneratorModule {
     this._osc.start();
     this._lfo.start();
 
-    this._currentPitches = [];
+    //this._currentPitches = [];
   }
 
   async initialize() {}
@@ -31,33 +31,40 @@ class GeneratorModule {
   }
 
   noteOn(pitch, velocity, when) {
-    // Q: What does this code do?
-    const noteOnPitch = Math.floor(Lib220a.mtof(pitch));
-    if (!this._currentPitches.includes(noteOnPitch))
-      this._currentPitches.push(noteOnPitch);
-    
     const now = this._context.currentTime;
+    const noteOnPitch = Math.floor(Lib220a.mtof(pitch), now, 0.001);
     this._osc.frequency.setTargetAtTime(noteOnPitch, now, 0.001);
+    this._amp.gain.setTargetAtTime(1.0, now, 0.0001);
+    // Q: What does this code do?
+//     const noteOnPitch = Math.floor(Lib220a.mtof(pitch));
+//     if (!this._currentPitches.includes(noteOnPitch))
+//       this._currentPitches.push(noteOnPitch);
+    
+//     const now = this._context.currentTime;
+//     this._osc.frequency.setTargetAtTime(noteOnPitch, now, 0.001);
 
     // Q: What does `1` mean?
-    if (this._currentPitches.length === 1)
-      this._amp.gain.setTargetAtTime(1.0, now, 0.001);
+    // if (this._currentPitches.length === 1)
+    //   this._amp.gain.setTargetAtTime(1.0, now, 0.001);
   }
 
   noteOff(pitch, velocity, when) {
+    const now = this._context.currentTime;
+    this._amp.gain.setTargetAtTime(0.0, now, 0.0001);
     // Q: What does this code do?
-    const noteOffPitch = Math.floor(pitch);
-    const index = this._currentPitches.indexOf(noteOffPitch);
-    if (index > -1)
-      this._currentPitches.splice(index, 1);
+    // const noteOffPitch = Math.floor(pitch);
+    // const index = this._currentPitches.indexOf(noteOffPitch);
+    // if (index > -1)
+    //   this._currentPitches.splice(index, 1);
     
     // Q: What does `0` mean?
-    if (this._currentPitches.length === 0) 
-      this._amp.gain.setTargetAtTime(0.0, this._context.currentTime, 0.001);
+    // if (this._currentPitches.length === 0) 
+    //   this._amp.gain.setTargetAtTime(0.0, this._context.currentTime, 0.001);
   }
 
   param1(value, when) {
     const scaledValue = (value / 100) * 40 + 3;
+    this._osc.frequency.setValue = scaledValue;
     this._osc.frequency.setTargetAtTime(scaledValue, this._context.currentTime, 0.001);
     // const scaledValue = (value / 100) * 20 + 2;
     // this._lfo.frequency.setTargetAtTime(

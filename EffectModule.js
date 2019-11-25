@@ -3,6 +3,8 @@ class EffectModule {
     this._context = context;
     this.input = new GainNode(this._context);
     this.output = new GainNode(this._context);
+    
+    t
 
     this._convolver = new ConvolverNode(this._context);
     this._wet = new GainNode(this._context);
@@ -25,14 +27,20 @@ class EffectModule {
   close() {}
 
   param1(value, when) {
-    const scaledValue = value / 20;
-    const now = this._context.currentTime;
-    this._wet.gain.setTargetAtTime(scaledValue, now, 0.001);
-    this._dry.gain.setTargetAtTime(1.0 - scaledValue, now, 0.001);
+      // const frequency = (userX / canvas.width) * 880 + 110;
+  // const cutoff = (1 - userY / canvas.height) * 3520 + 440;
+  // const later = context.currentTime + 0.04;
+  // osc.frequency.exponentialRampToValueAtTime(frequency, later);
+  // biquad.frequency.exponentialRampToValueAtTime(cutoff, later);
+    
+
   }
 
   param2(value, when) {}
-
+    // const scaledValue = value / 20;
+    // const now = this._context.currentTime;
+    // this._wet.gain.setTargetAtTime(scaledValue, now, 0.001);
+    // this._dry.gain.setTargetAtTime(1.0 - scaledValue, now, 0.001);
   param3(value, when) {}
 }
 

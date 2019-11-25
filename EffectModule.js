@@ -4,17 +4,20 @@ class EffectModule {
     this.input = new GainNode(this._context);
     this.output = new GainNode(this._context);
     
-    t
-
     this._convolver = new ConvolverNode(this._context);
     this._wet = new GainNode(this._context);
-    this._dry = new GainNode(this._context);
-
+    //this._dry = new GainNode(this._context);
+    
+    this._panner = new PannerNode(this._context);
+    this.input.connect(this._panner).connect(this._wet).connect(this.output);
+    this._panner.panningModel = "HRTF";
+    this._panner.positionY.value = 0.1;
+    
     this._wet.gain.value = 0.5;
-    this._dry.gain.value = 0.5;
+    //this._dry.gain.value = 0.5;
 
-    this.input.connect(this._convolver).connect(this._wet).connect(this.output);
-    this.input.connect(this._dry).connect(this.output);
+    //this.input.connect(this._convolver).connect(this._wet).connect(this.output);
+    //this.input.connect(this._dry).connect(this.output);
   }
 
   async initialize() {
@@ -26,14 +29,10 @@ class EffectModule {
 
   close() {}
 
-  param1(value, when) {
-      // const frequency = (userX / canvas.width) * 880 + 110;
-  // const cutoff = (1 - userY / canvas.height) * 3520 + 440;
-  // const later = context.currentTime + 0.04;
-  // osc.frequency.exponentialRampToValueAtTime(frequency, later);
-  // biquad.frequency.exponentialRampToValueAtTime(cutoff, later);
-    
-
+  param1(rect, width, height, userX, userY) {
+    const later = this._context.currentTime + 0.02;
+    this._panner.positionX.linearRampToValueAtTime((userX / width) * 880 + 110, later);
+    this._panner.positionZ.linearRampToValueAtTime((userY / height) * 880 + 110, later);
   }
 
   param2(value, when) {}

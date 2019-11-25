@@ -37,7 +37,7 @@ class GeneratorModule {
       this._currentPitches.push(noteOnPitch);
     
     const now = this._context.currentTime;
-    this._osc.frequency.setTargetAtTime(Lib220a.mtof(noteOnPitch), now, 0.001);
+    this._osc.frequency.setTargetAtTime(noteOnPitch, now, 0.001);
 
     // Q: What does `1` mean?
     if (this._currentPitches.length === 1)

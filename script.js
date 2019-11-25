@@ -13,17 +13,21 @@ const handleStartButtonClick = (event) => {
   event.srcElement.disabled = true;
 };
 
-const handleLfoFreqSlider = (event) => {
-  gen.param1(event.srcElement.valueAsNumber);
-};
+const handleFreqSlider = (event) => {
+  
+}
 
-const handleLfoDepthSlider = (event) => {
-  gen.param2(event.srcElement.valueAsNumber);
-};
+// const handleLfoFreqSlider = (event) => {
+//   gen.param1(event.srcElement.valueAsNumber);
+// };
 
-const handleReverbMixSlider = (event) => {
-  efx.param1(event.srcElement.valueAsNumber);
-};
+// const handleLfoDepthSlider = (event) => {
+//   gen.param2(event.srcElement.valueAsNumber);
+// };
+
+// const handleReverbMixSlider = (event) => {
+//   efx.param1(event.srcElement.valueAsNumber);
+// };
 
 const handleKeyDownEvent = (event) => {
   gen.noteOn(event.keyCode);
@@ -39,13 +43,14 @@ const setup = async () => {
 
   const buttonElement = document.querySelector('#button-start');
   const freqSliderElement = document.querySelector('#slider-1');
-  const depthSliderElement = document.querySelector('#slider-2');
-  const reverbSliderElement = document.querySelector('#slider-3');
+  //const depthSliderElement = document.querySelector('#slider-2');
+  //const reverbSliderElement = document.querySelector('#slider-3');
   
   buttonElement.addEventListener('click', handleStartButtonClick, {once: true});
-  freqSliderElement.addEventListener('input', handleLfoFreqSlider);
-  depthSliderElement.addEventListener('input', handleLfoDepthSlider);
-  reverbSliderElement.addEventListener('input', handleReverbMixSlider);
+  freqSliderElement.addEventListener('input', handleFreqSlider);
+  //freqSliderElement.addEventListener('input', handleLfoFreqSlider);
+  //depthSliderElement.addEventListener('input', handleLfoDepthSlider);
+  //reverbSliderElement.addEventListener('input', handleReverbMixSlider);
 
   window.addEventListener('keydown', handleKeyDownEvent);
   window.addEventListener('keyup', handleKeyUpEvent);

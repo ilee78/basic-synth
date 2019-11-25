@@ -22,6 +22,10 @@ const handleLfoSlider = (event) => {
   gen.param2(event.srcElement.valueAsNumber);
 }
 
+const handleVolSlider = (event) => {
+  gen.param3(event.srcElement.valueAsNumber);
+}
+
 // const handleLfoFreqSlider = (event) => {
 //   gen.param1(event.srcElement.valueAsNumber);
 // };
@@ -49,12 +53,14 @@ const setup = async () => {
   const buttonElement = document.querySelector('#button-start');
   const freqSliderElement = document.querySelector('#slider-1');
   const lfoSliderElement = document.querySelector('#slider-2');
+  const volSliderElement = document.querySelector('#slider-3');
   //const depthSliderElement = document.querySelector('#slider-2');
   //const reverbSliderElement = document.querySelector('#slider-3');
   
   buttonElement.addEventListener('click', handleStartButtonClick, {once: true});
   freqSliderElement.addEventListener('input', handleFreqSlider);
   lfoSliderElement.addEventListener('input', handleLfoSlider);
+  volSliderElement.addEventListener('input', handleVolSlider);
   //freqSliderElement.addEventListener('input', handleLfoFreqSlider);
   //depthSliderElement.addEventListener('input', handleLfoDepthSlider);
   //reverbSliderElement.addEventListener('input', handleReverbMixSlider);

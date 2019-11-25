@@ -16,7 +16,8 @@ class EffectModule {
   }
 
   async initialize() {
-    const response = await fetch('./samples/reverb-ir.mp3');
+    const file = 'https://cdn.glitch.com/c44791c8-02d2-4f00-87fb-fa398dfbec75%2Fpapercrumble.wav.crdownload.wav?v=1574717761204';
+    const response = await fetch(file);
     const arrayBuffer = await response.arrayBuffer();
     this._convolver.buffer = await this._context.decodeAudioData(arrayBuffer);
   }

@@ -38,10 +38,9 @@ class GeneratorModule {
     const now = this._context.currentTime;
     console.log(pitch);
     //const factor = Math.floor(Lib220a.mtof(pitch), now, 0.001);
-    //this._notePitch = this._notePitch;
     
     //this._notePitch = Math.floor(Lib220a.mtof(pitch), now, 0.001);
-    this._osc.frequency.setValueAtTime(this._notePitch, now, 0.001); 
+    this._osc.frequency.setTargetAtTime(this._notePitch, now, 0.001); 
     this._amp.gain.setTargetAtTime(this._volume, now, 0.0001);
 
     //this._osc.frequency.setTargetAtTime(this._notePitch, now, 0.001);

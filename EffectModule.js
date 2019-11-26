@@ -15,15 +15,16 @@ class EffectModule {
     this.x;
     
     this._osc = new OscillatorNode(this._context);
-    //this.input.connect(this._osc).connect(this._wet).connect(this.output);
+
     this._biquad = new BiquadFilterNode(this._context);
+    this._biquad.type = 'peaking';
     //this._osc.connect(this._biquad).connect(this._wet).connect(this.output);
     
     this._wet.gain.value = 0.5;
     this._dry.gain.value = 0.5;
 
     //this.input.connect(this._wet).connect(this.output);
-    //this.input.connect(this._biquad).connect(this._wet).connect(this.output);
+    this.input.connect(this._biquad).connect(this._wet).connect(this.output);
     
     this.input.connect(this._convolver).connect(this._wet).connect(this.output);
     this.input.connect(this._dry).connect(this.output);
@@ -58,11 +59,16 @@ class EffectModule {
     const rect = event.target.getBoundingClientRect();
     userX = event.clientX - rect.left;
     userY = event.clientY - rect.top;
+
+    const x = (userX - 100)
+    const z = (userY - 100)
+    this._panner.positionX.linearRampToValueAtTime
+    
     const frequency = (userX / 200) * 880 + 110;
     const cutoff = (1 - userY / 200) * 3520 + 440;
-    const later = context.currentTime + 0.04;
-    this.input.gain.exponentialRampToValueAtTime(frequency, later);
-    //this._biquad.frequency.exponentialRampToValueAtTime(2000, later);
+    const later = this._context.currentTime + 0.04;
+    //this.input.gain.exponentialRampToValueAtTime(frequency, later);
+    this._biquad.frequency.exponentialRampToValueAtTime(frequency, later);
   }
 }
 

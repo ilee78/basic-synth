@@ -6,17 +6,27 @@
   <body>
     <h1>Mini Minimoog</h1>
     <h3>By Isabelle Lee</h3>
-    <h4>I. Blueprint</h4>
+    <h4>I. Description</h4>
+    The Minimoog is an analog synthesizer manufactured by Moog Music in the 1970s and 1980s.
+    <br> It was the first synthesizer sold in retail stores. I tried to mimic the skeletal components
+    <br> of a very basic, primitive synthesizer in this assignment, hence the name.
+    <br>
+    <br> To abide by the assignment's focus on "playability", I implemented a waveform visualization
+    <br> to provide the user immediate feedback when they manipulated the sound, and simple sliders to 
+    <br> control multiple aspects of sound generation and effects.
+    <br> <i>Timestamp: 11/26/19 12:00 PM</i>
+    <p></p>
+    <h4>II. Blueprint</h4>
     <img src = "https://cdn.glitch.com/c44791c8-02d2-4f00-87fb-fa398dfbec75%2FMUSIC%20220A%20HW%204.png?v=1574791875395" alt = "Synth Blueprint" style="width:620px;height:458px;">
     <p></p>
-    <h4>II. Tutorial</h4>
+    <h4>III. Tutorial</h4>
     <p></p>
     Press the start button. Hold down a key on your keyboard and toggle the frequency slider first.
     <br> Then feel free to tinker with the other sliders to your heart's content.
     <br> Move the sound in 3D space according to your mouse position in the panner pad.
     <br> Watch as the waveforms change in the analyzer!
     <p></p>
-    <h4>III. Description of Parameters</h4>
+    <h4>IV. Description of Parameters</h4>
     <b>Frequency:</b> Connected to oscillator, changes pitch to a scaled value.
     <br>
     <br> <b>LFO:</b> Connected to oscillator frequency, creates rhythmic pulse.
@@ -32,8 +42,8 @@
     <br>
     <br> <b>Panner:</b> Takes mouse position coordinates as input, moves the sound in space accordingly.
     <p></p>
-    <h4>IV. "Factory" Presets</h4>
-    For observing interesting effects in delay:
+    <h4>V. "Factory" Presets</h4>
+    For observing interesting effects in delay.
     <br><b>Key:</b> "d". 
     <br><b>Frequency:</b> 10 (1/5 of the slider)
     <br><b>LFO:</b> 20 (1/5 of the slider)
@@ -42,7 +52,14 @@
     <br><b>Dry/Wet:</b> 100 (maximum position on slider)
     <br><b>Panner:</b> Near bottom right corner
     <p></p>
-    For observing interesting contrasts between dry and wet:
+    For observing interesting contrasts between dry and wet.
+    <br><b>Key:</b> "d". 
+    <br><b>Frequency:</b> 10 (1/5 of the slider)
+    <br><b>LFO:</b> 100 (maximum position on slider)
+    <br><b>Volume:</b> default
+    <br><b>Delay:</b> default
+    <br><b>Dry/Wet:</b> 0 or 100 (minimum and maximum positions on slider)
+    <br><b>Panner:</b> default
     <p></p>
     <button id="button-start" disabled>START</button>
     <p></p>

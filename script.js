@@ -55,7 +55,7 @@ const handleCanvas = (event) => {
 // };
 
 // const handleReverbMixSlider = (event) => {
-//   efx.param1(event.srcElement.valueAsNumber);
+//   efx.param2(event.srcElement.valueAsNumber);
 // };
 
 const handleKeyDownEvent = (event) => {
@@ -92,6 +92,8 @@ const setup = async () => {
   //reverbSliderElement.addEventListener('input', handleReverbMixSlider);
   
   canvas = document.getElementById('xy-pad');
+  
+  canvas.getContext('2d') = canvas.setContext(context);
   context2D = canvas.getContext('2d');
   canvas.addEventListener('mousemove', handleCanvas);
   render();
@@ -99,7 +101,6 @@ const setup = async () => {
   window.addEventListener('keydown', handleKeyDownEvent);
   window.addEventListener('keyup', handleKeyUpEvent);
 
-  // Everything is ready to go. Let's activate the start button.
   buttonElement.disabled = false;
 };
 

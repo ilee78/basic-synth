@@ -27,8 +27,8 @@ class EffectModule {
   }
 
   async initialize() {
-    const file = 'https://cdn.glitch.com/c44791c8-02d2-4f00-87fb-fa398dfbec75%2Fguitar.aiff?v=1574717660523';
-    //const file = 'https://cdn.glitch.com/c44791c8-02d2-4f00-87fb-fa398dfbec75%2Fpapercrumble.wav.crdownload.wav?v=1574717761204';
+    const file = 'https://cdn.glitch.com/c44791c8-02d2-4f00-87fb-fa398dfbec75%2Fwater-swirl.wav?v=1574729613476';
+    //const file = 'https://cdn.glitch.com/c44791c8-02d2-4f00-87fb-fa398dfbec75%2Fbreath.wav?v=1574729612779';
     const response = await fetch(file);
     const arrayBuffer = await response.arrayBuffer();
     this._convolver.buffer = await this._context.decodeAudioData(arrayBuffer);
@@ -44,19 +44,16 @@ class EffectModule {
     this._panner.positionZ.linearRampToValueAtTime(Math.cos(this.x + 2.00), later);
   }
 
-
   param2(value, when) {
-    
-    // const scaledValue = value / 400.0;
-    // this._compressor.threshold.value = 20;
-    // this._compressor.ratio.value = scaledValue;
-    // this._makeup.gain.value = Math.pow(10.0, scaledValue);
-    //const now = this._context.currentTime;
-    //this._wet.gain.setTargetAtTime(scaledValue, now, 0.001);
-    //this._dry.gain.setTargetAtTime(1.0 - scaledValue, now, 0.001);
+    const now = this._context.currentTime;
+    const scaledValue = value / 100;
+    this._wet.gain.setTargetAtTime(scaledValue, now, 0.001);
+    this._dry.gain.setTargetAtTime(1.0 - scaledValue, now, 0.001);
   }
 
-  param3(value, when) {}
+  param3(value, when) {
+    
+  }
 }
 
 export default EffectModule;

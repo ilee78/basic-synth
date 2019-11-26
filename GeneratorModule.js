@@ -14,7 +14,7 @@ class GeneratorModule {
     this._osc.frequency.value = 440;
     //this._osc.frequency.value = Lib220a.mtof(60);
     this._amp.gain.value = 0.0;
-    this._lfo.frequency.value = 6;
+    this._lfo.frequency.value = 8;
     this._depth.gain.value = 200;
 
     this._osc.connect(this._amp).connect(this.output);

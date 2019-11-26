@@ -29,7 +29,7 @@ const handlePanSlider = (event) => {
   efx.param1(event.srcElement.valueAsNumber);
 }
 
-const handleCompSlider = (event) => {
+const handleDryWetSlider = (event) => {
   efx.param2(event.srcElement.valueAsNumber);
 }
 
@@ -64,7 +64,7 @@ const setup = async () => {
   const volSliderElement = document.querySelector('#slider-3');
   
   const panSliderElement = document.querySelector('#slider-4');
-  const compSliderElement = document.querySelector('#slider-5');
+  const dryWetSliderElement = document.querySelector('#slider-5');
   //const depthSliderElement = document.querySelector('#slider-2');
   //const reverbSliderElement = document.querySelector('#slider-3');
   
@@ -74,7 +74,7 @@ const setup = async () => {
   volSliderElement.addEventListener('input', handleVolSlider);
   
   panSliderElement.addEventListener('input', handlePanSlider);
-  compSliderElement.addEventListener('input', handleCompSlider);
+  dryWetSliderElement.addEventListener('input', handleDryWetSlider);
   //freqSliderElement.addEventListener('input', handleLfoFreqSlider);
   //depthSliderElement.addEventListener('input', handleLfoDepthSlider);
   //reverbSliderElement.addEventListener('input', handleReverbMixSlider);

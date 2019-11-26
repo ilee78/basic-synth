@@ -14,6 +14,22 @@ class EffectModule {
     this._panner.positionY.value = 0.1;
     this.x;
     
+    this._waveshaper = new WaveShaperNode(this._context);
+    this._send = new GainNode(this._context);
+    this._delay = new DelayNode(this._context);
+    this._feedback = new GainNode(this._context);
+    this._plate = new ConvolverNode(this._context);
+    this._cabinet = new ConvolverNode(this._context);
+    
+    this._waveshaper.connect(this._cabinet).connect(this._wet);
+    this._waveshaper.connect(this._send);
+    this._send.connect(this._delay).connect(this._feedback).connect(this._delay);
+    this._delay.connect(this._plate)
+    
+    // this._compressor = new DynamicsCompressorNode(this._context);
+    // this._makeup = new GainNode(this._context);
+    // this._compressor.connect(this._makeup).connect(this.output);
+    
     this._wet.gain.value = 0.5;
     this._dry.gain.value = 0.5;
 
@@ -38,12 +54,17 @@ class EffectModule {
     this._panner.positionZ.linearRampToValueAtTime(Math.cos(this.x + 2.00), later);
   }
 
-  // Compressor
+
   param2(value, when) {
-    const scaledValue = value / 20;
-    const now = this._context.currentTime;
-    this._wet.gain.setTargetAtTime(scaledValue, now, 0.001);
-    this._dry.gain.setTargetAtTime(1.0 - scaledValue, now, 0.001);
+    
+    
+    // const scaledValue = value / 400.0;
+    // this._compressor.threshold.value = 20;
+    // this._compressor.ratio.value = scaledValue;
+    // this._makeup.gain.value = Math.pow(10.0, scaledValue);
+    //const now = this._context.currentTime;
+    //this._wet.gain.setTargetAtTime(scaledValue, now, 0.001);
+    //this._dry.gain.setTargetAtTime(1.0 - scaledValue, now, 0.001);
   }
 
   param3(value, when) {}

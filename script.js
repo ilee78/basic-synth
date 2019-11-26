@@ -4,30 +4,43 @@ import EffectModule from './EffectModule.js';
 const context = new AudioContext();
 const gen = new GeneratorModule(context);
 const efx = new EffectModule(context);
+
+// AnalyserNode reference credits to music220a/09-nonlinear-effects GitHub
+// https://github.com/ccrma/music220a/blob/master/09-nonlinear-effects/analyser/script.js
 const ana = new AnalyserNode(context);
 const waveformData = new Float32Array(2048);
 const frequencyData = new Float32Array(2048);
 
+// GeneratorModule output -> EffectModule input -> EffectModule output -> audioContext destination
 gen.output.connect(efx.input);
 efx.output.connect(ana);
 efx.output.connect(context.destination);
 
+// Variables to be used throughout the program
 let toggleState = false;
 let canvas = null;
 let context2D = null;
 let taskId = null;
 let userX = null;
 let userY = null;
-
 let analyzer = null;
 let contextAnalyzer = null;
 
+/*
+ * Handles when start button is clicked. Disables button after one click.
+ * Renders the waveform analyzer.
+ */
 const handleStartButtonClick = (event) => {
   context.resume();
   event.srcElement.disabled = true;
   renderAnalyzer();
 };
 
+/*
+ * Handles when frequency slider is changed. Calls function from GeneratorModule
+ * 
+ * Renders the waveform analyzer.
+ */
 const handleFreqSlider = (event) => {
   gen.param1(event.srcElement.valueAsNumber);
 }

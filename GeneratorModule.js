@@ -1,9 +1,11 @@
 import Lib220a from './Lib220.js';
 
 class GeneratorModule {
-  // Constructor. Takes in audioContext from script.js.
+  // Constructor takes in audioContext from script.js.
   constructor(context) {
     this._context = context;
+    
+    // Outputs sound to a GainNode that will serve as input to EffectModule
     this.output = new GainNode(this._context);
     
     // Nodes for frequency and LFO parameters (param1 and param2)
@@ -12,10 +14,6 @@ class GeneratorModule {
     this._osc = new OscillatorNode(this._context);
     this._amp = new GainNode(this._context);
     this._osc.type = 'sine';
-    
-    // Private variable to use throughout GeneratorModule class
-    this._notePitch = null;
-    this._osc.frequency.value = this._notePitch;
 
     this._amp.gain.value = 0.0;
     this._lfo.frequency.value = 8;
@@ -25,6 +23,10 @@ class GeneratorModule {
     this._lfo.connect(this._depth).connect(this._osc.detune);
     this._osc.start();
     this._lfo.start();
+    
+    // Private variable to use throughout GeneratorModule class
+    this._notePitch = null;
+    this._osc.frequency.value = this._notePitch;
     
     this._volume = 1.0;
     this._currentPitches = [];

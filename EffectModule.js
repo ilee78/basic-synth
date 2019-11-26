@@ -8,7 +8,7 @@ class EffectModule {
     this._lfo = new OscillatorNode(this._context);
     this._feedback = new GainNode(this._context);
     this._depth = new GainNode(this._context);
-    this._delay.connect(th.connect(this.output);
+    this.input.connect(this._delay).connect(this.output);
     this._lfo.connect(this._depth).connect(this._delay.delayTime);
     
     this._convolver = new ConvolverNode(this._context);
@@ -40,10 +40,10 @@ class EffectModule {
 
   param1(value, when) {
     this._lfo.start();
-    this._delay.delayTime.value = value * 0.5;
-    this._feedback.gain.value = 0.55;
+    this._delay.delayTime.value = value * 0.05;
+    this._feedback.gain.value = 0.25;
     this._lfo.frequency.value = 0.2;
-    this._depth.gain.value = 0.06;
+    this._depth.gain.value = 0.006;
   }
 
   param2(value, when) {

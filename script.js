@@ -4,8 +4,10 @@ import EffectModule from './EffectModule.js';
 const context = new AudioContext();
 const gen = new GeneratorModule(context);
 const efx = new EffectModule(context);
+const ana = new AnalyserNode(context);
 
 gen.output.connect(efx.input);
+efx.output.connect(ana);
 efx.output.connect(context.destination);
 
 let toggleState = false;
@@ -15,9 +17,13 @@ let taskId = null;
 let userX = null;
 let userY = null;
 
+let analyzer = null;
+let contextAnalyzer = null;
+
 const handleStartButtonClick = (event) => {
   context.resume();
   event.srcElement.disabled = true;
+  renderAnalyzer();
 };
 
 const handleFreqSlider = (event) => {
@@ -53,6 +59,17 @@ const render = () => {
   taskId = requestAnimationFrame(render);
 }
 
+const renderAnalyzer = () => {
+  contextAnalyzer.clearRect(0, 0, analyzer.width, analyzer.height);
+  renderWaveform();
+  renderSpectrum();
+  requestAnimationFrame(renderAnalyzer);
+}
+
+const renderSpectrum = () => {
+  
+}
+
 const handleKeyDownEvent = (event) => {
   gen.noteOn(event.keyCode);
 };
@@ -85,7 +102,10 @@ const setup = async () => {
   dryWetSliderElement.addEventListener('input', handleDryWetSlider);
   canvas.addEventListener('mousemove', handleCanvas);
   render();
-
+  
+  analyzer = document.querySelector('#visualization');
+  contextAnalyzer = analyzer.getContext('2d');
+  
   window.addEventListener('keydown', handleKeyDownEvent);
   window.addEventListener('keyup', handleKeyUpEvent);
 

@@ -32,7 +32,7 @@ const handleVolSlider = (event) => {
   gen.param3(event.srcElement.valueAsNumber);
 }
 
-const handlePanSlider = (event) => {
+const handleDelaySlider = (event) => {
   efx.param1(event.srcElement.valueAsNumber);
 }
 
@@ -71,7 +71,7 @@ const setup = async () => {
   const lfoSliderElement = document.querySelector('#slider-2');
   const volSliderElement = document.querySelector('#slider-3');
   
-  const panSliderElement = document.querySelector('#slider-4');
+  const delaySliderElement = document.querySelector('#slider-4');
   const dryWetSliderElement = document.querySelector('#slider-5');
   canvas = document.getElementById('xy-pad');
   context2D = canvas.getContext('2d');
@@ -81,7 +81,7 @@ const setup = async () => {
   lfoSliderElement.addEventListener('input', handleLfoSlider);
   volSliderElement.addEventListener('input', handleVolSlider);
   
-  panSliderElement.addEventListener('input', handlePanSlider);
+  delaySliderElement.addEventListener('input', handleDelaySlider);
   dryWetSliderElement.addEventListener('input', handleDryWetSlider);
   canvas.addEventListener('mousemove', handleCanvas);
   render();

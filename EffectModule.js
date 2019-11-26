@@ -4,6 +4,13 @@ class EffectModule {
     this.input = new GainNode(this._context);
     this.output = new GainNode(this._context);
     
+    this._delay = new DelayNode(this._context);
+    this._lfo = new OscillatorNode(this._context);
+    this._feedback = new GainNode(this._context);
+    this._depth = new GainNode(this._context);
+    this._delay.connect(th.connect(this.output);
+    this._lfo.connect(this._depth).connect(this._delay.delayTime);
+    
     this._convolver = new ConvolverNode(this._context);
     this._wet = new GainNode(this._context);
     this._dry = new GainNode(this._context);
@@ -13,19 +20,9 @@ class EffectModule {
     this.input.connect(this._panner).connect(this._dry).connect(this.output);
     this._panner.panningModel = "HRTF";
     this._panner.positionY.value = 0.1;
-    this.x;
-    
-    this._osc = new OscillatorNode(this._context);
-
-    this._biquad = new BiquadFilterNode(this._context);
-    this._biquad.type = 'peaking';
-    //this._osc.connect(this._biquad).connect(this._wet).connect(this.output);
     
     this._wet.gain.value = 0.5;
     this._dry.gain.value = 0.5;
-
-    //this.input.connect(this._wet).connect(this.output);
-    this.input.connect(this._biquad).connect(this._wet).connect(this.output);
     
     this.input.connect(this._convolver).connect(this._wet).connect(this.output);
     this.input.connect(this._dry).connect(this.output);
@@ -37,16 +34,16 @@ class EffectModule {
     const response = await fetch(file);
     const arrayBuffer = await response.arrayBuffer();
     this._convolver.buffer = await this._context.decodeAudioData(arrayBuffer);
-    
   }
   
   close() {}
 
   param1(value, when) {
-    this.x = value;
-    const later = this._context.currentTime + 0.07;
-    //this._panner.positionX.linearRampToValueAtTime(Math.sin(this.x), later);
-    //this._panner.positionZ.linearRampToValueAtTime(Math.cos(this.x), later);
+    this._lfo.start();
+    this._delay.delayTime.value = value * 0.5;
+    this._feedback.gain.value = 0.55;
+    this._lfo.frequency.value = 0.2;
+    this._depth.gain.value = 0.06;
   }
 
   param2(value, when) {
@@ -68,12 +65,6 @@ class EffectModule {
     this._panner.positionX.linearRampToValueAtTime(Math.sin(x), later);
     this._panner.positionZ.linearRampToValueAtTime(Math.cos(z), later);
     this._panner.positionY.linearRampToValueAtTime(y, later);
-    
-    //const frequency = (userX / 200) * 880 + 110;
-    //const cutoff = (1 - userY / 200) * 3520 + 440;
-    //const later = this._context.currentTime + 0.04;
-    //this.input.gain.exponentialRampToValueAtTime(frequency, later);
-    //this._biquad.frequency.exponentialRampToValueAtTime(frequency, later);
   }
 }
 

@@ -8,6 +8,13 @@ const efx = new EffectModule(context);
 gen.output.connect(efx.input);
 efx.output.connect(context.destination);
 
+let toggleState = false;
+let canvas = null;
+let context2D = null;
+let taskId = null;
+let userX = null;
+let userY = null;
+
 const handleStartButtonClick = (event) => {
   context.resume();
   event.srcElement.disabled = true;
@@ -33,17 +40,18 @@ const handleDryWetSlider = (event) => {
   efx.param2(event.srcElement.valueAsNumber);
 }
 
-// const handleLfoFreqSlider = (event) => {
-//   gen.param1(event.srcElement.valueAsNumber);
-// };
+const handleCanvas = (event) => {
+  const rect = event.target.getBoundingClientRect();
+  userX = event.clientX - rect.left;
+  userY = event.clientY - rect.top;
+  efx.param3(event, userX, userY);
+}
 
-// const handleLfoDepthSlider = (event) => {
-//   gen.param2(event.srcElement.valueAsNumber);
-// };
-
-// const handleReverbMixSlider = (event) => {
-//   efx.param2(event.srcElement.valueAsNumber);
-// };
+const render = () => {
+  context2D.clearRect(0, 0, canvas.width, canvas.height);
+  context2D.fillRect(userX - 5, userY - 5, 10, 10);
+  taskId = requestAnimationFrame(render);
+}
 
 const handleKeyDownEvent = (event) => {
   gen.noteOn(event.keyCode);
@@ -65,8 +73,8 @@ const setup = async () => {
   
   const panSliderElement = document.querySelector('#slider-4');
   const dryWetSliderElement = document.querySelector('#slider-5');
-  //const depthSliderElement = document.querySelector('#slider-2');
-  //const reverbSliderElement = document.querySelector('#slider-3');
+  canvas = document.getElementById('xy-pad');
+  context2D = canvas.getContext('2d');
   
   buttonElement.addEventListener('click', handleStartButtonClick, {once: true});
   freqSliderElement.addEventListener('input', handleFreqSlider);
@@ -75,9 +83,8 @@ const setup = async () => {
   
   panSliderElement.addEventListener('input', handlePanSlider);
   dryWetSliderElement.addEventListener('input', handleDryWetSlider);
-  //freqSliderElement.addEventListener('input', handleLfoFreqSlider);
-  //depthSliderElement.addEventListener('input', handleLfoDepthSlider);
-  //reverbSliderElement.addEventListener('input', handleReverbMixSlider);
+  canvas.addEventListener('mousemove', handleCanvas);
+  render();
 
   window.addEventListener('keydown', handleKeyDownEvent);
   window.addEventListener('keyup', handleKeyUpEvent);

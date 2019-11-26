@@ -51,8 +51,13 @@ class EffectModule {
     this._dry.gain.setTargetAtTime(1.0 - scaledValue, now, 0.001);
   }
 
-  param3(value, when) {
-    
+  param3(event, userX, userY) {
+    const rect = event.target.getBoundingClientRect();
+    userX = event.clientX - rect.left;
+    userY = event.clientY - rect.top;
+    const frequency = (userX / canvas.width) * 880 + 110;
+    const cutoff = (1 - userY / canvas.height) * 3520 + 440;
+    const later = context.currentTime + 0.04;
   }
 }
 

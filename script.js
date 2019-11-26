@@ -5,6 +5,8 @@ const context = new AudioContext();
 const gen = new GeneratorModule(context);
 const efx = new EffectModule(context);
 const ana = new AnalyserNode(context);
+const waveformData = new Float32Array(2048);
+const frequencyData = new Float32Array(2048);
 
 gen.output.connect(efx.input);
 efx.output.connect(ana);
@@ -67,7 +69,23 @@ const renderAnalyzer = () => {
 }
 
 const renderSpectrum = () => {
-  
+  ana.getFloatFrequencyData(frequencyData);
+  const inc = analyzer.width / (frequencyData.length * 0.5);
+  contextAnalyzer.beginPath();
+  contextAnalyzer.moveTo(0, analyzer.height);
+  for (let x = 0, i = 0; x < analyzer.width; x += inc, ++i)
+    contextAnalyzer.lineTo(x, -frequencyData[i]);
+  contextAnalyzer.stroke();
+}
+
+const renderWaveform = () => {
+  ana.getFloatTimeDomainData(waveformData);
+  const inc = analyzer.width / waveformData.length;
+  contextAnalyzer.beginPath();
+  contextAnalyzer.moveTo(0, analyzer.height * 0.5);
+  for (let x = 0, i = 0; x < analyzer.width; x += inc, ++i)
+    contextAnalyzer.lineTo(x, (waveformData[i] * 0.5 + 0.5) * analyzer.height);
+  contextAnalyzer.stroke();
 }
 
 const handleKeyDownEvent = (event) => {

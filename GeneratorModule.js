@@ -24,7 +24,7 @@ class GeneratorModule {
     
     this._notePitch;
     this._volume = 1.0;
-    //this._currentPitches = [];
+    this._currentPitches = [];
   }
 
   async initialize() {}
@@ -37,9 +37,6 @@ class GeneratorModule {
   noteOn(pitch, velocity, when) {
     const now = this._context.currentTime;
     console.log(pitch);
-    //const factor = Math.floor(Lib220a.mtof(pitch), now, 0.001);
-    
-    //this._notePitch = Math.floor(Lib220a.mtof(pitch), now, 0.001);
     this._osc.frequency.setTargetAtTime(this._notePitch, now, 0.001); 
     this._amp.gain.setTargetAtTime(this._volume, now, 0.0001);
 

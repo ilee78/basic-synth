@@ -1,12 +1,13 @@
 body {
   font-family: helvetica, arial, sans-serif;
+  color: #ffffff;
   margin: 2em;
-  background-image: url("");
+  background-color: #000000;
 }
 
 h1 {
   font-style: italic;
-  color: #000000;
+  color: #ffffff;
 }
 
 p, div {
@@ -14,5 +15,5 @@ p, div {
 }
 
 canvas {
-  border: 1px solid #000;
+  border: 1px solid #ffffff;
 }

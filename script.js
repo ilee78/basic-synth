@@ -58,6 +58,7 @@ const handleCanvas = (event) => {
 const render = () => {
   context2D.clearRect(0, 0, canvas.width, canvas.height);
   context2D.fillRect(userX - 5, userY - 5, 10, 10);
+  context2D.fillStyle = "#ffffff";
   taskId = requestAnimationFrame(render);
 }
 
@@ -75,6 +76,7 @@ const renderSpectrum = () => {
   contextAnalyzer.moveTo(0, analyzer.height);
   for (let x = 0, i = 0; x < analyzer.width; x += inc, ++i)
     contextAnalyzer.lineTo(x, -frequencyData[i]);
+  contextAnalyzer.strokeStyle = "#ffffff";
   contextAnalyzer.stroke();
 }
 
@@ -85,6 +87,7 @@ const renderWaveform = () => {
   contextAnalyzer.moveTo(0, analyzer.height * 0.5);
   for (let x = 0, i = 0; x < analyzer.width; x += inc, ++i)
     contextAnalyzer.lineTo(x, (waveformData[i] * 0.5 + 0.5) * analyzer.height);
+  contextAnalyzer.strokeStyle = "#ffffff";
   contextAnalyzer.stroke();
 }
 

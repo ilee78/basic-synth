@@ -35,26 +35,22 @@ class GeneratorModule {
   }
 
   noteOn(pitch, velocity, when) {
-    const now = this._context.currentTime;
-    console.log(pitch);
-    this._osc.frequency.setTargetAtTime(this._notePitch, now, 0.001); 
-    this._amp.gain.setTargetAtTime(this._volume, now, 0.0001);
+    // const now = this._context.currentTime;
+    // console.log(pitch);
+    // this._osc.frequency.setTargetAtTime(this._notePitch, now, 0.001); 
+    // this._amp.gain.setTargetAtTime(this._volume, now, 0.0001);
 
-    //this._osc.frequency.setTargetAtTime(this._notePitch, now, 0.001);
-    //const noteOnPitch = Math.floor(Lib220a.mtof(pitch), now, 0.001);
-    //this._osc.frequency.setTargetAtTime(noteOnPitch, now, 0.001);
-
-    // Q: What does this code do?
-//     const noteOnPitch = Math.floor(Lib220a.mtof(pitch));
-//     if (!this._currentPitches.includes(noteOnPitch))
-//       this._currentPitches.push(noteOnPitch);
+    //Q: What does this code do?
+    const noteOnPitch = Math.floor(Lib220a.mtof(pitch));
+    if (!this._currentPitches.includes(noteOnPitch))
+      this._currentPitches.push(noteOnPitch);
     
-//     const now = this._context.currentTime;
-//     this._osc.frequency.setTargetAtTime(noteOnPitch, now, 0.001);
+    const now = this._context.currentTime;
+    this._osc.frequency.setTargetAtTime(noteOnPitch, now, 0.001);
 
-    // Q: What does `1` mean?
-    // if (this._currentPitches.length === 1)
-    //   this._amp.gain.setTargetAtTime(1.0, now, 0.001);
+   // Q: What does `1` mean?
+    if (this._currentPitches.length === 1)
+      this._amp.gain.setTargetAtTime(1.0, now, 0.001);
   }
 
   noteOff(pitch, velocity, when) {

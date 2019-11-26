@@ -42,7 +42,6 @@ class GeneratorModule {
   }
 
   param1(value, when) {
-    console.log(value);
     const now = this._context.currentTime;
     this._notePitch = Math.floor(Lib220a.mtof(value) * 10, now, 0.001);
     this._osc.frequency.setTargetAtTime(this._notePitch, this._context.currentTime, 0.001);
@@ -50,14 +49,12 @@ class GeneratorModule {
   }
   
   param2(value, when) {
-    console.log(value);
     const now = this._context.currentTime;
     const scaledValue = (value / 100) * 10 + 1;
     this._lfo.frequency.setValueAtTime(scaledValue, now, 0.001);
   }
 
   param3(value, when) {
-    console.log(value);
     const now = this._context.currentTime;
     this._volume = value / 95.00;
     this._amp.gain.setTargetAtTime(this._volume, now, 0.001);

@@ -39,7 +39,6 @@ class EffectModule {
   close() {}
 
   param1(value, when) {
-    console.log(value);
     this._lfo.start();
     this._delay.delayTime.value = value * 0.05;
     this._feedback.gain.value = 0.25;
@@ -48,7 +47,6 @@ class EffectModule {
   }
 
   param2(value, when) {
-    console.log(value);
     const now = this._context.currentTime;
     const scaledValue = value / 100;
     this._wet.gain.setTargetAtTime(scaledValue, now, 0.001);
@@ -56,8 +54,6 @@ class EffectModule {
   }
 
   param3(event, userX, userY) {
-    console.log("x:", userX);
-    console.log("y:", userY);
     const rect = event.target.getBoundingClientRect();
     const later = this._context.currentTime + 0.07;
     userX = event.clientX - rect.left;

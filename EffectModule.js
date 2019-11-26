@@ -12,6 +12,7 @@ class EffectModule {
     this.input.connect(this._panner).connect(this._wet).connect(this.output);
     this._panner.panningModel = "HRTF";
     this._panner.positionY.value = 0.1;
+    this.x;
     
     this._wet.gain.value = 0.5;
     //this._dry.gain.value = 0.5;
@@ -29,10 +30,11 @@ class EffectModule {
 
   close() {}
 
-  param1(rect, width, height, userX, userY) {
+  param1(value, when) {
+    this.x = value;
     const later = this._context.currentTime + 0.02;
-    this._panner.positionX.linearRampToValueAtTime((userX / width) * 880 + 110, later);
-    this._panner.positionZ.linearRampToValueAtTime((userY / height) * 880 + 110, later);
+    this._panner.positionX.linearRampToValueAtTime(Math.sin(this.x), later);
+    this._panner.positionZ.linearRampToValueAtTime(Math.cos(this.x), later);
   }
 
   param2(value, when) {}

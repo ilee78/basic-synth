@@ -11,9 +11,10 @@
     <br> It was the first synthesizer sold in retail stores. I tried to mimic the skeletal components
     <br> of a very basic, primitive synthesizer in this assignment, hence the name.
     <br>
-    <br> To abide by the assignment's focus on "playability", I implemented a waveform visualization
-    <br> to provide the user immediate feedback when they manipulated the sound, and simple sliders to 
-    <br> control multiple aspects of sound generation and effects.
+    <br> To abide by the assignment's focus on playability, I implemented a waveform visualization
+    <br> to provide the user immediate feedback when they manipulated the sound, and sliders to 
+    <br> simplify user experience when controlling multiple aspects of the sound.
+    <br>
     <br> <i>Timestamp: 11/26/19 12:00 PM</i>
     <p></p>
     <h4>II. Blueprint</h4>
@@ -22,9 +23,8 @@
     <h4>III. Tutorial</h4>
     <p></p>
     Press the start button. Hold down a key on your keyboard and toggle the frequency slider first.
-    <br> Then feel free to tinker with the other sliders to your heart's content.
-    <br> Move the sound in 3D space according to your mouse position in the panner pad.
-    <br> Watch as the waveforms change in the analyzer!
+    <br> Then feel free to tinker with the other sliders. Move the sound in 3D space according to
+    <br> your mouse position in the panner pad. Watch as the waveforms change in the analyzer!
     <p></p>
     <h4>IV. Description of Parameters</h4>
     <b>Frequency:</b> Connected to oscillator, changes pitch to a scaled value.
@@ -36,7 +36,7 @@
     <br> <b>Delay:</b> Connected to feedback gain, creates echo and overlapping sounds.
     <br>
     <br> <b>Dry/Wet:</b> Connected to convolver attached to dry/wet gain, bestows the
-    <br>sound interesting properties taken from this
+    <br>sound interesting properties taken from this breath 
     <a href="https://cdn.glitch.com/c44791c8-02d2-4f00-87fb-fa398dfbec75%2Fbreath.wav?v=1574729612779">impulse</a>. Minimum position
     <br>on slider yields entirely dry effect, maximum position yields entirely wet.
     <br>
@@ -60,6 +60,7 @@
     <br><b>Delay:</b> default
     <br><b>Dry/Wet:</b> 0 or 100 (minimum and maximum positions on slider)
     <br><b>Panner:</b> default
+    <h4>VI. Mini Minimoog</h4>
     <p></p>
     <button id="button-start" disabled>START</button>
     <p></p>
@@ -81,6 +82,9 @@
       <p></p>
       <canvas id="xy-pad" width="200" height="200"></canvas>
     </div>
+    <h6>
+      Music 220A. HW 4. Autumn 2019.
+    </h6>
     <script src="./script.js" type="module"></script>
   </body>
 </html>

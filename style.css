@@ -1,11 +1,19 @@
-/* CSS files add styling rules to your content */
-
 body {
   font-family: helvetica, arial, sans-serif;
   margin: 2em;
+  background-image: url("https://cdn.glitch.com/c44791c8-02d2-4f00-87fb-fa398dfbec75%2Fsandro-katalina-k1bO_VTiZSs-unsplash.jpg?v=1574740916065");
+  background-repeat: repeat-x;
 }
 
 h1 {
   font-style: italic;
-  color: #373fff;
+  color: #ffffff;
+}
+
+p, div {
+  font-family: palatino, serif;
+}
+
+canvas {
+  border: 1px solid #000;
 }

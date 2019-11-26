@@ -88,7 +88,7 @@ class EffectModule {
     userX = event.clientX - rect.left;
     userY = event.clientY - rect.top;
 
-    const x = (30 * 3.14 * (-1))/ (userX - 100);
+    const x = (30 * 3.14) / (userX - 100);
     const z = (30 * 3.14) / (userY - 100);
     const y = (userX - 100) / 100;
     this._panner.positionX.linearRampToValueAtTime(Math.sin(x), later);

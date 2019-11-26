@@ -13,6 +13,7 @@ const frequencyData = new Float32Array(2048);
 
 // GeneratorModule output -> EffectModule input -> EffectModule output -> audioContext destination
 gen.output.connect(efx.input);
+// Connects EffectModule output to analyzer to render waveform visualization
 efx.output.connect(ana);
 efx.output.connect(context.destination);
 
@@ -37,30 +38,49 @@ const handleStartButtonClick = (event) => {
 };
 
 /*
- * Handles when frequency slider is changed. Calls function from GeneratorModule
- * 
- * Renders the waveform analyzer.
+ * Handles when frequency slider is changed. Passes in event element value as number, 
+ * calls function from GeneratorModule to change frequency.
  */
 const handleFreqSlider = (event) => {
   gen.param1(event.srcElement.valueAsNumber);
 }
 
+/*
+ * Handles when LFO slider is changed. Passes in event element value as number, 
+ * calls function from GeneratorModule to change oscillation/pulse rate.
+ */
 const handleLfoSlider = (event) => {
   gen.param2(event.srcElement.valueAsNumber);
 }
 
+/*
+ * Handles when volume slider is changed. Passes in event element value as number, 
+ * calls function from GeneratorModule to change loudness of sound.
+ */
 const handleVolSlider = (event) => {
   gen.param3(event.srcElement.valueAsNumber);
 }
 
+/*
+ * Handles when delay slider is changed. Passes in event element value as number, 
+ * calls function from EffectModule to change delay time.
+ */
 const handleDelaySlider = (event) => {
   efx.param1(event.srcElement.valueAsNumber);
 }
 
+/*
+ * Handles when dry/wet slider is changed. Passes in event element value as number, 
+ * calls function from EffectModule to change ratio of dry/wet sound.
+ */
 const handleDryWetSlider = (event) => {
   efx.param2(event.srcElement.valueAsNumber);
 }
 
+/*
+ * Handles when panner pad is changed. Passes in user mouse position as set of coordinates,
+ * calls function from EffectModule to change source of sound in space.
+ */
 const handleCanvas = (event) => {
   const rect = event.target.getBoundingClientRect();
   userX = event.clientX - rect.left;
@@ -68,6 +88,7 @@ const handleCanvas = (event) => {
   efx.param3(event, userX, userY);
 }
 
+// Recursive function that renders the rectangle that follows user's mouse on panner pad.
 const render = () => {
   context2D.clearRect(0, 0, canvas.width, canvas.height);
   context2D.fillRect(userX - 5, userY - 5, 10, 10);
@@ -75,6 +96,7 @@ const render = () => {
   taskId = requestAnimationFrame(render);
 }
 
+// Recursive function that renders the analyzer according to output from EffectModule
 const renderAnalyzer = () => {
   contextAnalyzer.clearRect(0, 0, analyzer.width, analyzer.height);
   renderWaveform();
@@ -82,6 +104,7 @@ const renderAnalyzer = () => {
   requestAnimationFrame(renderAnalyzer);
 }
 
+// Renders the spectrum of the sound from EffectModule output
 const renderSpectrum = () => {
   ana.getFloatFrequencyData(frequencyData);
   const inc = analyzer.width / (frequencyData.length * 0.5);
@@ -93,6 +116,7 @@ const renderSpectrum = () => {
   contextAnalyzer.stroke();
 }
 
+// Renders the waveform of the sound from EffectModule output
 const renderWaveform = () => {
   ana.getFloatTimeDomainData(waveformData);
   const inc = analyzer.width / waveformData.length;
@@ -104,14 +128,22 @@ const renderWaveform = () => {
   contextAnalyzer.stroke();
 }
 
+// Handles when key is pressed, calls function from GeneratorModule and passes in keyCode
 const handleKeyDownEvent = (event) => {
   gen.noteOn(event.keyCode);
 };
 
+// Handles when key is unpressed, calls function from GeneratorModule and passes in keyCode
 const handleKeyUpEvent = (event) => {
   gen.noteOff(event.keyCode);
 };
 
+/*
+ * SET UP
+ * Initializes GeneratorModule and EffectModule. Creates variables that are linked
+ * to the button, slider, and canvas elements. Adds event listeners that will call
+ * functions above. Renders panner pad and waveform analysis visualization.
+ */
 const setup = async () => {
   await gen.initialize();
   await efx.initialize();

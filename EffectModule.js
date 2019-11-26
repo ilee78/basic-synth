@@ -17,7 +17,6 @@ class EffectModule {
     //this._osc = new OscillatorNode(this._context);
     //this._osc.connect(this.input);
     this._biquad = new BiquadFilterNode(this._context);
-    this._biquad.type = 'highpass';
     //this._osc.connect(this._biquad).connect(this._wet).connect(this.output);
     
     this._wet.gain.value = 0.5;
@@ -62,7 +61,7 @@ class EffectModule {
     const cutoff = (1 - userY / 200) * 3520 + 440;
     const later = context.currentTime + 0.04;
     //this.input.gain.exponentialRampToValueAtTime(frequency, later);
-    this._biquad.frequency.exponentialRampToValueAtTime(cutoff, later);
+    this._biquad.frequency.exponentialRampToValueAtTime(2000, later);
   }
 }
 
